@@ -1,0 +1,22 @@
+/* Footprint trail layer — never intercepts the pointer. */
+.paw-trail {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 3000;
+  pointer-events: none;
+}
+
+/* Paw cursor for real mice. Files live in /public/cursor (replace with the originals to match exactly).
+   Hotspot = centre of the paw. Text fields keep the normal I-beam. */
+@media (hover: hover) and (pointer: fine) {
+  html,
+  html *:not(input):not(textarea):not([contenteditable='true']) {
+    cursor: url('/cursor/paw.svg') 16 16, auto !important;
+  }
+  html:active,
+  html *:not(input):not(textarea):not([contenteditable='true']):active {
+    cursor: url('/cursor/paw-press.svg') 16 16, auto !important;
+  }
+}
