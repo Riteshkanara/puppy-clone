@@ -1,0 +1,132 @@
+/* TeddyPups page curtain — see PageCurtain.tsx */
+
+.tp-curtain {
+  --curtain-hide: calc(-100% - 3.5rem); /* parked above the screen, hem included */
+  --curtain-below: calc(100% + 3.5rem); /* waiting below the screen, top edge included */
+  position: fixed;
+  inset: 0;
+  z-index: 3000; /* above the header (1000/1001) and everything else */
+  overflow: visible;
+  background:
+    repeating-linear-gradient(45deg, transparent 0 46px, #2a170e12 46px 48px),
+    repeating-linear-gradient(-45deg, transparent 0 46px, #2a170e12 46px 48px),
+    radial-gradient(60rem 38rem at 50% 40%, #fffaf0 0, #fcebc8 52%, #fbe3b4 100%);
+  translate: 0 0;
+  will-change: translate;
+}
+
+.tp-curtain[data-phase='idle'] {
+  translate: 0 var(--curtain-hide);
+  visibility: hidden;
+  pointer-events: none;
+}
+.tp-curtain[data-phase='cover'] {
+  translate: 0 0;
+}
+.tp-curtain[data-phase='enter'] {
+  animation: tp-curtain-enter 0.38s cubic-bezier(0.5, 0, 0.75, 0.35) both;
+}
+.tp-curtain[data-phase='lift'] {
+  translate: 0 var(--curtain-hide);
+  pointer-events: none;
+  transition: translate 0.6s cubic-bezier(0.65, 0, 0.2, 1);
+}
+@keyframes tp-curtain-enter {
+  from {
+    translate: 0 var(--curtain-below);
+  }
+  to {
+    translate: 0 0;
+  }
+}
+
+/* scalloped hem hanging under the sheet (and the same edge, flipped, on top) */
+.tp-curtain__edge {
+  position: absolute;
+  inset: auto 0 -39px 0;
+  display: block;
+  pointer-events: none;
+  filter: drop-shadow(0 4px 0 #2a170e1f);
+}
+
+.tp-curtain__edge--top {
+  inset: -39px 0 auto 0;
+  scale: 1 -1;
+  filter: drop-shadow(0 -4px 0 #2a170e1f);
+}
+
+.tp-curtain__stage {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+}
+
+.tp-curtain__teddy {
+  position: absolute;
+  left: 6%;
+  top: 52%;
+  width: clamp(5rem, 8.4vw, 7.75rem); /* the original's Teddy is small: ~120px on a 1466px screen */
+  translate: -50% -50%;
+  animation: tp-curtain-walk 0.75s cubic-bezier(0.35, 0.1, 0.45, 1) 0.03s both;
+}
+
+.tp-curtain__note {
+  position: absolute;
+  left: 50%;
+  top: 66%;
+  translate: -50% 0;
+  margin: 0;
+  color: var(--color-toffee-ink, #8e3f15);
+  font-size: clamp(1.1rem, 1.7vw, 1.5rem);
+  white-space: nowrap;
+  animation: tp-curtain-fade 0.3s ease-out 0.1s both;
+}
+
+.tp-curtain__paw {
+  position: absolute;
+  width: clamp(1rem, 1.7vw, 1.5rem);
+  translate: -50% -50%;
+  color: #7a4628;
+  opacity: 0;
+  animation: tp-curtain-paw 0.22s var(--ease-pounce, cubic-bezier(0.34, 1.56, 0.64, 1)) both;
+}
+
+@keyframes tp-curtain-walk {
+  from {
+    left: 6%;
+  }
+  to {
+    left: 43%;
+  }
+}
+@keyframes tp-curtain-fade {
+  from {
+    opacity: 0;
+    translate: -50% 0.6rem;
+  }
+}
+@keyframes tp-curtain-paw {
+  0% {
+    opacity: 0;
+    scale: 0.2;
+  }
+  100% {
+    opacity: 0.55;
+    scale: 1;
+  }
+}
+
+@media (max-width: 639px) {
+  .tp-curtain__teddy {
+    top: 46%;
+  }
+  .tp-curtain__note {
+    top: 60%;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .tp-curtain {
+    display: none;
+  }
+}
