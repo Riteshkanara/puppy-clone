@@ -1,0 +1,68 @@
+.pup {
+  --look-x: 0px;
+  --look-y: 0px;
+  --look-rot: 0deg;
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.pup__shadow { fill: #2a170e; opacity: 0.16; }
+.pup__fur,
+.pup__paw,
+.pup__strap,
+.pup__tag,
+.pup__stem {
+  stroke: #2a170e;
+  stroke-width: 3.2;
+  stroke-linejoin: round;
+  stroke-linecap: round;
+}
+.pup__fur { fill: #f2be6b; }
+.pup__fur--deep { fill: #e9ae55; }
+.pup__paw { fill: #f7cf8c; }
+.pup__stem { fill: none; stroke-width: 6; stroke: #2a170e; }
+.pup__cheek { fill: #f6a99a; opacity: 0.55; }
+.pup__muzzle { fill: #fbe3b4; }
+.pup__ink { fill: #2a170e; }
+.pup__glint { fill: #fffdf8; }
+.pup__mouth { fill: none; stroke: #2a170e; stroke-width: 2.6; stroke-linecap: round; stroke-linejoin: round; }
+.pup__tongue { fill: #f08f86; stroke: #2a170e; stroke-width: 1.8; stroke-linejoin: round; }
+.pup__strap { fill: #b5562a; }
+.pup__tag { fill: #fbe3b4; stroke-width: 2.4; }
+
+/* ---------- motion ---------- */
+.pup * { transform-box: fill-box; }
+.pup__rig { transform-origin: 50% 100%; animation: pup-breathe 4.2s ease-in-out infinite; }
+.pup__tail { transform-origin: 100% 100%; animation: pup-wag 5.5s ease-in-out infinite; }
+.pup__head { transform-origin: 50% 100%; animation: pup-tilt 9s ease-in-out infinite; }
+.pup__ear { transform-origin: 50% 0%; }
+.pup__ear--l { animation: pup-ear-l 9s ease-in-out infinite; }
+.pup__ear--r { animation: pup-ear-r 9s ease-in-out infinite 0.15s; }
+.pup__eye { transform-origin: 50% 50%; animation: pup-blink 5.2s infinite; }
+.pup__eyes { transform: translate(var(--look-x), var(--look-y)); transition: transform 0.18s ease-out; }
+
+@keyframes pup-breathe { 0%, 100% { transform: scaleY(1); } 50% { transform: scaleY(1.014); } }
+@keyframes pup-wag {
+  0%, 62%, 100% { transform: rotate(0deg); }
+  67% { transform: rotate(-16deg); } 72% { transform: rotate(14deg); }
+  77% { transform: rotate(-14deg); } 82% { transform: rotate(12deg); }
+  87% { transform: rotate(-8deg); } 92% { transform: rotate(0deg); }
+}
+@keyframes pup-tilt {
+  0%, 38%, 100% { transform: rotate(var(--look-rot)); }
+  46%, 60% { transform: rotate(calc(var(--look-rot) + 8deg)); }
+  70% { transform: rotate(calc(var(--look-rot) - 3deg)); }
+}
+@keyframes pup-ear-l { 0%, 38%, 100% { transform: rotate(0); } 46%, 60% { transform: rotate(7deg); } 52% { transform: rotate(11deg); } }
+@keyframes pup-ear-r { 0%, 38%, 100% { transform: rotate(0); } 46%, 60% { transform: rotate(-4deg); } 52% { transform: rotate(-9deg); } }
+@keyframes pup-blink { 0%, 93%, 100% { transform: scaleY(1); } 96% { transform: scaleY(0.08); } }
+
+.pup:hover .pup__tail { animation-duration: 0.9s; animation-name: pup-wag-fast; }
+@keyframes pup-wag-fast { 0%, 100% { transform: rotate(-14deg); } 50% { transform: rotate(14deg); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .pup__rig, .pup__tail, .pup__head, .pup__ear, .pup__eye { animation: none; }
+  .pup__eyes { transition: none; }
+}
