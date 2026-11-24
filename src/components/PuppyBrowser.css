@@ -1,0 +1,133 @@
+/* "Sketchpad" panel + sticker chips (original: .tp-sketchpad, .tp-sticker-chip) */
+.tp-sketchpad {
+  position: relative;
+  rotate: -0.35deg;
+  padding: clamp(1.1rem, 2.6vw, 1.6rem) clamp(1.1rem, 2.6vw, 1.75rem);
+  background: var(--color-milk);
+  border: 3px solid var(--color-cocoa);
+  border-radius: 1.2rem 1.6rem 1.3rem 1.5rem;
+  box-shadow: 5px 7px #2a170e1f;
+}
+.tp-sketchpad::before {
+  content: '';
+  position: absolute;
+  top: -0.85rem;
+  left: 2.2rem;
+  width: 5.5rem;
+  height: 1.5rem;
+  background: color-mix(in oklab, var(--color-honey) 55%, white);
+  opacity: 0.85;
+  rotate: -4deg;
+  box-shadow: 0 1px 2px #2a170e26;
+}
+
+.tp-sticker-chip {
+  min-height: 2.75rem;
+  padding: 0.45rem 1rem;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 650;
+  color: var(--color-cocoa);
+  background: var(--color-milk);
+  border: 2px solid var(--color-cocoa);
+  border-radius: 999px;
+  box-shadow: 2px 3px #2a170e24;
+  cursor: pointer;
+  transition: background-color 0.25s, color 0.25s, rotate 0.35s var(--ease-pounce), translate 0.35s var(--ease-pounce),
+    box-shadow 0.25s;
+}
+.tp-sticker-chip:hover {
+  background: var(--color-honey-soft);
+  translate: 0 -1px;
+}
+.tp-sticker-chip:active {
+  translate: 0 1px;
+  box-shadow: 0 0 #2a170e24;
+}
+.tp-sticker-chip[aria-pressed='true'] {
+  background: var(--color-cocoa);
+  color: var(--color-milk);
+  rotate: -2deg;
+  box-shadow: 1px 2px #2a170e40;
+}
+.tp-sticker-chip:focus-visible,
+.link-ink:focus-visible {
+  outline: 3px solid var(--color-toffee);
+  outline-offset: 3px;
+}
+
+.tp-filters {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+.tp-filter-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 0.5rem;
+}
+.tp-filter-row__label {
+  flex-shrink: 0;
+  width: 100%;
+  margin-right: 0.25rem;
+  color: var(--color-cocoa-soft);
+}
+@media (min-width: 640px) {
+  .tp-filter-row__label {
+    width: 7rem;
+  }
+}
+.tp-filters__clear {
+  margin-left: auto;
+  padding: 0;
+  font: inherit;
+  font-size: 0.95rem;
+  font-weight: 600;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+
+.tp-count {
+  margin: 2.5rem 0 0;
+  font-size: 1.125rem;
+  line-height: 1.55;
+  color: var(--ink-soft);
+}
+.tp-sketches--grid {
+  margin-top: 2rem;
+  margin-bottom: 0;
+}
+
+/* Empty state */
+.tp-empty {
+  display: grid;
+  align-items: center;
+  gap: 1.5rem;
+  margin-top: 2.5rem;
+}
+.tp-empty__teddy {
+  width: 11rem;
+  margin-inline: auto;
+}
+.tp-empty__text {
+  max-width: 48ch;
+  margin: 0.75rem 0 0;
+  color: var(--color-cocoa-soft);
+}
+.tp-empty__actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.5rem;
+}
+@media (min-width: 768px) {
+  .tp-empty {
+    grid-template-columns: auto 1fr;
+    gap: 2.5rem;
+  }
+  .tp-empty__teddy {
+    width: 13rem;
+  }
+}
