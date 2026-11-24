@@ -1,0 +1,132 @@
+/* /happy-families — page shell: wallpaper, hero, testimonial note, sign-off. */
+.hf-page {
+  --hf-stripe: 46.5px;
+  position: relative;
+  padding: 3.75rem var(--page-gutter) clamp(4rem, 8vw, 7rem);
+  color: var(--color-cocoa);
+  /* cream wallpaper: warm glow at the top centre, faint vertical stripes, slow fade to a deeper cream */
+  background:
+    radial-gradient(55% 42% at 50% 7%, rgb(250 222 165 / 0.6), transparent 72%),
+    repeating-linear-gradient(90deg, transparent 0 calc(var(--hf-stripe) - 2px), rgb(160 110 50 / 0.06) calc(var(--hf-stripe) - 2px) var(--hf-stripe)),
+    linear-gradient(180deg, #fdf2df 0%, #fbeed6 35%, #f2dfbf 100%);
+  overflow-x: clip;
+}
+
+/* ---------- Hero ---------- */
+.hf-hero {
+  display: grid;
+  gap: 2.25rem;
+  max-width: 90rem;
+  margin-inline: auto;
+  padding-bottom: 5.5rem;
+}
+.hf-kicker {
+  margin: 0 0 0.35rem;
+  font-size: 1.1rem;
+  color: var(--color-toffee-ink);
+}
+.hf-title {
+  margin: 0;
+  font-size: clamp(3.1rem, 9.4vw, 9.75rem);
+  line-height: 1.02;
+  color: var(--color-cocoa);
+}
+.hf-heart {
+  display: inline-block;
+  width: 0.34em;
+  height: 0.31em;
+  margin-left: 0.14em;
+  vertical-align: 0.08em;
+  fill: none;
+  stroke: var(--color-toffee);
+  stroke-width: 2.6;
+  stroke-linejoin: round;
+}
+.hf-lede {
+  max-width: 38rem;
+  margin: 1.5rem 0 0;
+  font-size: clamp(1.125rem, 1.4vw, 1.375rem);
+  line-height: 1.5;
+  color: var(--color-cocoa-soft);
+}
+.hf-count {
+  margin: 1rem 0 0;
+  font-size: 1.2rem;
+  color: var(--color-toffee-ink);
+}
+
+/* ---------- Testimonial note (ruled paper + tape) ---------- */
+.hf-note {
+  position: relative;
+  margin: 0;
+  width: 100%;
+  max-width: 27.5rem;
+  padding: 1.4rem 1.5rem 1.2rem;
+  background:
+    repeating-linear-gradient(180deg, transparent 0 calc(1.5625rem - 1px), rgb(42 23 14 / 0.07) calc(1.5625rem - 1px) 1.5625rem),
+    #fffdf8;
+  box-shadow: 0 0.6rem 1.4rem rgb(42 23 14 / 0.16), 0 0.1rem 0.25rem rgb(42 23 14 / 0.1);
+  border-radius: 0.2rem;
+  transform: rotate(1.1deg);
+}
+.hf-note__tape {
+  position: absolute;
+  top: -0.85rem;
+  left: 50%;
+  width: 5.4rem;
+  height: 1.7rem;
+  translate: -50% 0;
+  background: rgb(190 218 240 / 0.8);
+  box-shadow: 0 1px 2px rgb(42 23 14 / 0.12);
+  transform: rotate(-1deg);
+}
+.hf-note blockquote {
+  margin: 0;
+  font-family: var(--font-display);
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-size: 1.1rem;
+  line-height: 1.5625rem;
+  color: var(--color-cocoa);
+}
+.hf-note figcaption {
+  margin-top: 0.9rem;
+  font-size: 1rem;
+  color: var(--color-toffee-ink);
+}
+
+/* Desktop: headline left, note bottom-right. */
+@media (min-width: 1024px) {
+  .hf-hero {
+    grid-template-columns: minmax(0, 1fr) minmax(0, 27.5rem);
+    align-items: end;
+    column-gap: 3rem;
+  }
+}
+@media (max-width: 1023px) {
+  .hf-note { justify-self: stretch; max-width: none; }
+}
+@media (max-width: 639px) {
+  .hf-page { padding-top: 2.25rem; }
+  .hf-hero { padding-bottom: 3.25rem; }
+  .hf-note blockquote { font-size: 1rem; }
+}
+
+/* ---------- Wall + sign-off ---------- */
+.hf-wall-wrap {
+  max-width: 90rem;
+  margin-inline: auto;
+}
+.hf-signoff {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 1.25rem;
+  margin-top: clamp(3rem, 8vw, 6rem);
+}
+.hf-signoff__teddy { width: clamp(5.5rem, 10vw, 8.5rem); height: auto; flex: none; }
+.hf-signoff p {
+  margin: 0 0 1rem;
+  font-size: clamp(0.95rem, 1.4vw, 1.2rem);
+  color: var(--color-cocoa-soft);
+}
