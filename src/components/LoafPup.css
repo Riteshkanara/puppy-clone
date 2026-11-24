@@ -1,0 +1,65 @@
+.loaf {
+  display: block;
+  width: 100%;
+  height: auto;
+  overflow: visible;
+}
+
+.loaf__tail,
+.loaf__body,
+.loaf__head,
+.loaf__ear,
+.loaf__eyes {
+  transform-box: view-box;
+}
+
+.loaf__tail {
+  transform-origin: 258px 132px;
+  animation: loaf-wag 4s ease-in-out infinite;
+}
+@keyframes loaf-wag {
+  0%, 50%, 100% { transform: rotate(0deg); }
+  8% { transform: rotate(-14deg); }
+  16% { transform: rotate(10deg); }
+  24% { transform: rotate(-12deg); }
+  32% { transform: rotate(8deg); }
+  40% { transform: rotate(-4deg); }
+}
+
+.loaf__body {
+  transform-origin: 178px 184px;
+  animation: loaf-breathe 4.2s ease-in-out infinite;
+}
+@keyframes loaf-breathe {
+  0%, 100% { transform: scale(1, 1); }
+  50% { transform: scale(1.005, 1.022); }
+}
+
+.loaf__head {
+  transform-origin: 90px 150px;
+  animation: loaf-tilt 7s ease-in-out infinite;
+}
+@keyframes loaf-tilt {
+  0%, 60%, 100% { transform: rotate(0deg); }
+  70%, 85% { transform: rotate(-4deg); }
+}
+
+.loaf__ear--l { transform-origin: 48px 80px; animation: loaf-flick 6s ease-in-out infinite; }
+@keyframes loaf-flick {
+  0%, 88%, 100% { transform: rotate(0deg); }
+  92% { transform: rotate(-9deg); }
+  96% { transform: rotate(3deg); }
+}
+
+.loaf__eyes {
+  transform-origin: 84px 86px;
+  animation: loaf-blink 5s infinite;
+}
+@keyframes loaf-blink {
+  0%, 93%, 100% { transform: scaleY(1); }
+  96% { transform: scaleY(0.08); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .loaf__tail, .loaf__body, .loaf__head, .loaf__ear--l, .loaf__eyes { animation: none; }
+}

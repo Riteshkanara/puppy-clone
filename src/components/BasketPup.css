@@ -1,0 +1,45 @@
+.basket-pup {
+  width: clamp(11rem, 14vw, 13.5rem);
+  aspect-ratio: 300 / 276;
+}
+.basket-pup svg { display: block; width: 100%; height: 100%; overflow: visible; }
+
+.basket-pup__body { fill: #d9a05a; stroke: #2a170e; stroke-width: 3.2; stroke-linejoin: round; }
+.basket-pup__weave { fill: none; stroke: rgb(42 23 14 / 28%); stroke-width: 2.6; stroke-linecap: round; }
+.basket-pup__rim-line { fill: none; stroke: #2a170e; stroke-width: 13; stroke-linecap: round; }
+.basket-pup__rim { fill: none; stroke: #e8b46c; stroke-width: 7.5; stroke-linecap: round; }
+
+.basket-pup__pup {
+  transform-box: fill-box; animation: basket-bob 4.6s ease-in-out infinite; transition: translate 0.4s var(--ease-pounce, ease); }
+.basket-pup:hover .basket-pup__pup { translate: 0 -9px; }
+
+@keyframes basket-bob { 0%, 100% { transform: translateY(2px); } 50% { transform: translateY(-4px); } }
+
+@media (prefers-reduced-motion: reduce) {
+  .basket-pup__pup { animation: none; transition: none; }
+}
+
+/* "home, at last" — a speech bubble that pops up beside Teddy (never in the text flow) */
+.tp-basketwrap { position: relative; width: fit-content; }
+.tp-basketwrap__bubble {
+  position: absolute;
+  left: 62%;
+  top: -0.4rem;
+  z-index: 2;
+  padding: 0.2rem 0.8rem 0.25rem;
+  border: 2px solid #2a170e;
+  border-radius: 1rem 1rem 1rem 0.25rem;
+  background: #fffaf0;
+  color: #2a170e;
+  font-size: 1rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  scale: 0.6;
+  transform-origin: 0 100%;
+  transition: opacity 0.3s ease, scale 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+.tp-basketwrap[data-in='true'] .tp-basketwrap__bubble { opacity: 1; scale: 1; transition-delay: 0.8s; }
+.tp-basketwrap[data-in='true'] .tp-basketwrap__bubble { animation: tp-basket-say 4.5s 0.8s both; }
+@keyframes tp-basket-say { 0% { opacity: 0; scale: 0.6; } 8%, 80% { opacity: 1; scale: 1; } 100% { opacity: 0; scale: 0.8; } }
