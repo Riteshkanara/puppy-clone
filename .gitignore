@@ -37,4 +37,8 @@ dist-ssr
 .DS_Store
 
 # Private reconstruction notes (kept locally)
-docs/*.md
+docs/BUILD_PLAN.md
+docs/MASCOT_JOURNEY_NOTES.md
+docs/PROJECT_HANDOFF.md
+docs/PUPPIES_PAGE.md
+docs/RECON.md
