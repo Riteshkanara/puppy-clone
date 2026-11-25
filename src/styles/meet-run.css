@@ -1,15 +1,15 @@
 /* Home → "Meet the pups" and the page-wide Teddy. Loaded after home.css (see HomePage.tsx). */
 
 /*
- * The original ships Tailwind's reset in `@layer base`. home.css dropped it, so inside this section the
- * browser's own margins came back: <h2> (~0.83em), <p>, <ol> (1em) and <ol>'s left padding. That made the
- * heading block ~130px taller than the original, which (a) pushed the heading down, (b) opened a gap between
- * the heading and its sentence, and (c) shrank the pinned doors, because the door width is "whatever is left
- * under the heading". This restores the same reset, but only for this section, and in the same cascade layer
- * the original used — so utilities (.mt-3 …) and every component rule still win over it.
+ * The original ships Tailwind's reset in `@layer base`. home.css dropped it, so on the Home page the browser's own
+ * margins and padding came back: <h2>/<h3>/<p> margins, <ol>'s 1em margin and 40px left padding. Visible symptoms:
+ * the "Meet the pups" heading block ~130px too tall (which also shrank the pinned doors), and the journey steps
+ * pushed ~40px to the right with a loose gap between each title and its text.
+ * This restores the same reset for the eight Home scenes only (they are the only `.tp-scene`s), in the same cascade
+ * layer the original used — so utilities (.mt-3 …) and every component rule still win over it.
  */
 @layer base {
-  .tp-meet :where(*, ::before, ::after) {
+  .tp-scene :where(*, ::before, ::after) {
     box-sizing: border-box;
     margin: 0;
     padding: 0;

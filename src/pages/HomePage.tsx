@@ -12,6 +12,7 @@ import { useHomeMotion } from '../hooks/useHomeMotion'
 import '../styles/home.css'
 import '../styles/home-motion.css'
 import '../styles/meet-run.css'
+import '../styles/chat-run.css'
 
 /**
  * Home `/` — eight "scenes" that run from morning to night, then the shared Footer (from MainLayout).

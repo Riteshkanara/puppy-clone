@@ -1,33 +1,75 @@
-# Prompts
+# Prompt Record and Reusable Prompt Patterns
 
-Selected prompts in my original wording. They are examples from a longer process.
+This file documents how prompts were organised during the project. It deliberately does not invent exact historical messages.
 
-## 1. Standard task prompt
-**Tool:** TODO: confirm
+## Historical prompt evidence
+
+The supplied project notes contain descriptions of several prompt types, but not a complete verbatim export of every ChatGPT and Claude conversation. Therefore, entries below are labelled according to the evidence available.
+
+| Prompt category | Tool | Evidence status |
+|---|---|---|
+| Initial project/context instructions | ChatGPT / Claude | Exact wording not fully preserved in this archive |
+| Playwright reconnaissance and extraction | ChatGPT-assisted planning / Playwright execution | Task is described; exact original prompt needs chat export |
+| Feature implementation prompts | Claude | Individual verbatim prompts need original conversation export |
+| Bug reports and review prompts | ChatGPT / Claude | Exact messages need original conversation export |
+| End-of-session handoff | ChatGPT | Process is documented; exact wording not preserved |
+
+**Important:** If the assignment requires real prompts, export the original chats and paste the exact text with the correct tool label. Do not present the templates below as historical prompts.
+
+## Reusable prompt pattern: inspect before editing
+
+```text
+Inspect the existing implementation and configuration before changing anything.
+Identify the relevant files, current behaviour, dependencies and constraints.
+Do not invent routes, content, assets or functionality.
+Explain the proposed changes and wait for approval if the scope is unclear.
 ```
-[paste the MASTER PROMPT exactly, starting "I'm continuing the TeddyPups React reconstruction..."]
-```
-**Produced:** a repeatable opening for every phase. **Why:** a fresh chat knows nothing about my machine, so the prompt carries the rules and the docs carry the state.
 
-## 2. Mascot task
-**Tool:** TODO: confirm
-```
-[paste the "Paws puppy prompt" in full]
-```
-**Produced:** an inspection of the reference mascot code first, then one location at a time. **Key rule I set:** inspect the rig and report what was and was not seen before writing any code.
+## Reusable prompt pattern: implement one feature
 
-## 3. Happy Families task
-**Tool:** TODO: confirm
-```
-[paste the TASK line: Build /happy-families: polaroid wall of 64 photos, testimonial note, and the full-screen viewer with Previous / Next / Close and the "1 / 64" counter. Tell me which photos I need to provide.]
+```text
+Implement the specified feature using the existing project structure.
+Reuse current components, types, styles and helpers where appropriate.
+Do not add a dependency without explaining why it is needed.
+List every file changed and explain the purpose of each change.
+Run the available build and lint checks, and report their actual results.
+Clearly identify anything that could not be verified.
 ```
 
-## 4. Handoff
-**Tool:** ChatGPT (TODO: confirm)
-Exact wording of my handoff request: TODO: paste it, or write "asked for a full progress handoff for the next chat".
+## Reusable prompt pattern: review a patch
 
-## 5. Bug reports and review prompts
-TODO: add 2 to 3 real messages where I reported a problem or asked for a review.
+```text
+Review this patch against the requested behaviour and the existing source.
+Look for regressions, missing states, responsive issues, accessibility problems,
+unused code and incorrect assumptions.
+Do not modify unrelated files.
+Report findings by severity and reference the affected files.
+```
 
-## The rules I repeated in every prompt
-Inspect before editing. Never invent content, routes or numbers. Keep the original design. No new libraries without asking. Test against my own package.json, tsconfig and ESLint config. One patch zip with only new or changed files. Short, point-wise answers.
+## Reusable prompt pattern: handoff
+
+```text
+Prepare a factual handoff for the next session.
+Include completed work, changed files, current git state, checks actually run,
+known issues, constraints and the next task.
+Separate verified facts from assumptions and unfinished work.
+```
+
+## Rules used across prompts
+
+- Inspect before editing.
+- Preserve the reference design.
+- Do not invent data or claim unverified work.
+- Use the project's actual `package.json`, TypeScript and ESLint configuration.
+- Keep patches focused.
+- Report what changed and what was tested.
+
+## How to complete the historical record
+
+1. Export the relevant ChatGPT and Claude conversations.
+2. Select representative prompts: initial instruction, Playwright extraction, feature task, bug report, and handoff.
+3. Paste each message verbatim under a dated heading.
+4. Label the tool correctly.
+5. Keep reusable templates in a separate section.
+
+This makes the prompt log honest and useful as evidence of the AI-assisted workflow.

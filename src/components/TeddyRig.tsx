@@ -24,7 +24,7 @@ function prepare(inner: string): string {
 const HTML = prepare(pupBuddies[0].inner)
 const VIEWBOX = pupBuddies[0].viewBox
 
-type Mode = 'run' | 'bound' | 'idle' | 'sit'
+type Mode = 'run' | 'bound' | 'leap' | 'idle' | 'sit'
 
 /** "sit" mode is alive like the original: eyes track the mouse, blinks, closes his eyes + wags faster when petted. */
 const EYE_CENTRE = { x: 212, y: 98 } // between his eyes, in rig units (viewBox 300 x 240)
@@ -60,8 +60,8 @@ export default function TeddyRig({ mode = 'idle', className }: { mode?: Mode; cl
       part('bn')?.setAttribute('opacity', '0')
     }
 
-    if (mode === 'run') {
-      // the original trots with happy ^ ^ eyes
+    if (mode === 'run' || mode === 'leap') {
+      // the original trots / leaps with happy ^ ^ eyes
       part('open')?.setAttribute('opacity', '0')
       part('happy')?.setAttribute('opacity', '1')
     }
@@ -108,7 +108,19 @@ export default function TeddyRig({ mode = 'idle', className }: { mode?: Mode; cl
     const start = performance.now()
     const frame = (now: number) => {
       const t = (now - start) / 1000
-      if (mode === 'run' || mode === 'bound') {
+      if (mode === 'leap') {
+        // Mid-leap pose from the original CTA: legs tucked (shortened + folded), happy eyes, held still with a tiny bob.
+        const bob = Math.sin(t * 2.1) * 1.4
+        set(body, `translate(0 ${(-8 + bob).toFixed(2)}) rotate(-3 196 206)`)
+        set(head, `translate(0 ${(-4 + bob).toFixed(2)}) rotate(-2 212 100)`)
+        set(legs.bf, 'translate(94 192) rotate(-20) scale(1 0.5)')
+        set(legs.bn, 'translate(110 194) rotate(-10) scale(1 0.45)')
+        set(legs.ff, 'translate(168 192) rotate(62) scale(1 0.75)')
+        set(legs.fn, 'translate(186 194) rotate(48) scale(1 0.7)')
+        set(tail, 'rotate(-30 84 150)')
+        set(earL, `rotate(${(-6 + Math.sin(t * 2.1 + 1) * 2).toFixed(1)} 174 82)`)
+        set(earR, `rotate(${(6 - Math.sin(t * 2.1 + 1) * 2).toFixed(1)} 250 82)`)
+      } else if (mode === 'run' || mode === 'bound') {
         const slow = mode === 'bound' // relaxed leaping beside calls to action
         const p = t * Math.PI * 2 * (slow ? 1.1 : 2.6)
         const bounce = -Math.abs(Math.sin(p)) * (slow ? 6 : 9)

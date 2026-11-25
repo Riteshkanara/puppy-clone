@@ -273,7 +273,7 @@
   display: grid; gap: 1.5rem; align-items: center;
   padding: clamp(1.4rem, 3vw, 2.4rem);
   border: 3px solid var(--hiw-cocoa); border-radius: 1.4rem; background: var(--hiw-milk);
-  outline: 2px solid #2a170e33; outline-offset: -10px;
+  outline: 1.5px dashed #2a170e59; outline-offset: -10px;
   box-shadow: 6px 8px var(--hiw-shadow);
 }
 .hiw-cta__title { font-size: clamp(2rem, 4.6vw, 3.8rem); line-height: 1; }
@@ -295,15 +295,15 @@
 @media (min-width: 48rem) { .hiw-cta { grid-template-columns: 1fr auto; } .hiw-cta__pup { width: 16rem; margin-right: 1.5rem; } }
 
 .hiw-btn {
-  display: inline-flex; align-items: center; justify-content: center; min-height: 2.9rem;
-  padding: 0.7rem 1.4rem; border-radius: 999px; font-weight: 700; font-size: 0.95rem;
+  display: inline-flex; align-items: center; justify-content: center; min-height: 3.3rem;
+  padding: 0.8rem 1.7rem; border-radius: 999px; font-weight: 700; font-size: 1.05rem;
   text-decoration: none; border: 2px solid var(--hiw-cocoa); white-space: nowrap;
   transition: translate 0.3s var(--hiw-pounce), rotate 0.3s var(--hiw-pounce);
 }
 .hiw-btn:hover { translate: 0 -2px; rotate: 1deg; }
 .hiw-btn:focus-visible { outline: 3px solid var(--hiw-toffee); outline-offset: 3px; }
-.hiw-btn--whatsapp { background: var(--hiw-green); border-color: var(--hiw-green); color: #fff; box-shadow: 0 4px 0 #14502f; }
-.hiw-btn--ghost { background: #fff; color: var(--hiw-cocoa); }
+.hiw-btn--whatsapp { background: var(--hiw-green); border-color: var(--hiw-green); color: #fff; box-shadow: 0 5px 0 var(--hiw-cocoa); }
+.hiw-btn--ghost { background: #fff; color: var(--hiw-cocoa); box-shadow: 0 4px 0 #2a170e26; }
 
 /* ---------- Mobile action dock (WhatsApp / Call) ---------- */
 .hiw-dock {
