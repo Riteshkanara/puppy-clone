@@ -1,3 +1,6 @@
+/* Cascade-layer order, as in the original Tailwind build. Declared first so a later `@layer base`
+   (see styles/meet-run.css) always ranks below components and utilities, no matter which file loads first. */
+@layer properties, theme, base, components, utilities;
 
 @font-face {
   font-family: "Fraunces";

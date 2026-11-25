@@ -1,5 +1,40 @@
 /* Home → "Meet the pups" and the page-wide Teddy. Loaded after home.css (see HomePage.tsx). */
 
+/*
+ * The original ships Tailwind's reset in `@layer base`. home.css dropped it, so inside this section the
+ * browser's own margins came back: <h2> (~0.83em), <p>, <ol> (1em) and <ol>'s left padding. That made the
+ * heading block ~130px taller than the original, which (a) pushed the heading down, (b) opened a gap between
+ * the heading and its sentence, and (c) shrank the pinned doors, because the door width is "whatever is left
+ * under the heading". This restores the same reset, but only for this section, and in the same cascade layer
+ * the original used — so utilities (.mt-3 …) and every component rule still win over it.
+ */
+@layer base {
+  .tp-meet :where(*, ::before, ::after) {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+  }
+  .tp-meet :where(h1, h2, h3, h4, h5, h6) {
+    font-size: inherit;
+    font-weight: inherit;
+  }
+  .tp-meet :where(ol, ul) {
+    list-style: none;
+  }
+  .tp-meet :where(a) {
+    color: inherit;
+    text-decoration: inherit;
+  }
+  .tp-meet :where(img, svg) {
+    display: block;
+    vertical-align: middle;
+  }
+  .tp-meet :where(img) {
+    max-width: 100%;
+    height: auto;
+  }
+}
+
 /* home.css dropped the original's CSS reset, so these links fell back to the browser's blue. */
 .tp-door__link {
   color: inherit;
