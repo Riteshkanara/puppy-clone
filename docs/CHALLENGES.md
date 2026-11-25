@@ -1,35 +1,67 @@
-# Challenges
+# Challenges and Engineering Lessons
 
-## 1. Swapped font files
-- **Symptom:** handwriting font appeared on body text everywhere.
-- **Cause:** `figtree.woff2` and `shantell-sans.woff2` contained each other's data.
-- **Fix:** swapped the files. Built sizes now match the fonts (Figtree about 20 kB, Shantell Sans about 171 kB).
-- **Lesson:** check files, not just names. Compare against the reference visually.
+This document records implementation problems, their causes, fixes and the lessons learned. It separates confirmed issues from items that still need additional evidence.
 
-## 2. Photos not showing on a clean copy
-- **Symptom:** cards showed colour placeholders.
-- **Cause:** photos come from `public/media`, which is filled by `fetch-media.mjs`. In my submission copy, `.gitignore` excluded that folder.
-- **Fix:** removed the ignore rule and committed the original files.
-- **Lesson:** test from a fresh clone, not only the working folder.
+## 1. Original media missing from a clean copy
 
-## 3. TypeScript error in `pupRig.ts`
-- **Symptom:** `npm run build` failed on the `PupRig` constructor.
-- **Cause:** TODO: confirm. Likely a constructor parameter property rejected by the TypeScript configuration.
-- **Fix:** declared `svg` as a field and assigned it in the constructor.
-- **Lesson:** run the build often, not just the dev server.
+**Symptom:** Some image areas showed placeholders or did not display the intended photos.
 
-## 4. Five ESLint errors
-- Unused ternary expressions, and state set inside effects (`react-hooks/set-state-in-effect`).
-- **Fix:** rewrote the expressions. Where behaviour was intentional, as in `PageCurtain`, I documented why in a comment.
-- **Lesson:** TODO: one sentence on why setting state in an effect can cause extra renders.
+**Cause:** The `public/media/` directory was excluded by an ignore rule in the submission copy, so the required original assets were not included.
 
-## 5. Page curtain timing
-- **Problem:** the curtain must cover a new route before its first paint on back or forward navigation.
-- **Solution:** a `useLayoutEffect` that runs before paint. It also pauses reveal animations via `data-curtain` until a `tp:curtain-open` event fires.
-- **Lesson:** `useLayoutEffect` is for work that must happen before the browser paints.
+**Fix:** The ignore rule was removed and the original media files were included in the project archive.
 
-## 5b. Scroll animation without re-renders
-- `useScrollScrub` writes a CSS variable (`--p`) from a `requestAnimationFrame` loop, so React doesn't re-render on scroll.
+**Lesson:** Test a clean checkout or archive, not only the working directory. A project that works locally may still be missing ignored assets.
 
-## 6. Large bundle warning
-- One JS chunk of 536.76 kB. Accepted for now. Next step: `React.lazy` per route.
+## 2. TypeScript constructor error in the mascot rig
+
+**Symptom:** The TypeScript build rejected a constructor parameter property in `src/lib/pupRig.ts`.
+
+**Cause:** The project enables `erasableSyntaxOnly` in `tsconfig.app.json`. Parameter properties are not compatible with that setting.
+
+**Fix:** Declare `svg` as a normal class field and assign it inside the constructor.
+
+**Lesson:** Read the project's TypeScript configuration before copying syntax from examples. A build error can come from compiler settings rather than the business logic.
+
+## 3. Font files were mapped incorrectly
+
+**Symptom:** The handwriting style appeared in places where the regular sans-serif font was expected.
+
+**Cause:** The contents of `figtree.woff2` and `shantell-sans.woff2` had been swapped.
+
+**Fix:** The font files were corrected and the result was checked visually against the reference.
+
+**Lesson:** Asset filenames are not proof of asset contents. Check the rendered result and, where possible, inspect font metadata.
+
+## 4. ESLint caught implementation issues
+
+**Symptom:** Lint reported unused expressions and state updates inside effects.
+
+**Fix:** The expressions were rewritten and the intentional exception in `PageCurtain.tsx` was documented with a targeted suppression.
+
+**Lesson:** Avoid broad lint suppression. Keep exceptions narrow and explain why they are necessary.
+
+## 5. Reference contact information was misleading
+
+**Problem:** The reference payload contained a WhatsApp destination and contact details associated with the template provider, not necessarily the TeddyPups business.
+
+**Decision:** Do not reuse those details as if they were verified business contact information. Contact actions route to the local contact page instead.
+
+**Lesson:** Extracted data is not automatically trustworthy business data. Verify ownership and context before reproducing contact destinations.
+
+## 6. Visual fidelity and implementation complexity
+
+**Challenge:** Reproducing custom character movement and scroll-linked scenes is more involved than rendering static sections.
+
+**Approach:** The project separates reusable animation hooks, mascot rig logic, journey planning and page components.
+
+**Lesson:** Complex visual behaviour becomes easier to reason about when calculations and rendering responsibilities are separated.
+
+## Remaining items to verify
+
+- Re-run the current build and lint commands on the final working tree.
+- Confirm every image path works from a clean checkout.
+- Check page transitions with direct navigation and browser history.
+- Re-test responsive layouts at documented viewport widths.
+- Measure the current production bundle rather than relying on old output.
+
+Do not add a challenge to this file unless the symptom, cause and resolution can be explained accurately.
