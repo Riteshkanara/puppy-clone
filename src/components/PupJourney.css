@@ -1,0 +1,75 @@
+/* Teddy's journey (components/PupJourney.tsx) — layer, actor, speech bubble, paw prints, hearts. */
+.pup-layer {
+  position: fixed;
+  inset: 0;
+  z-index: 30;
+  overflow: clip;
+  contain: layout paint style;
+  pointer-events: none;
+}
+.pup-layer[data-front='false'] { z-index: 15; }
+/* phones: he walks along the very bottom edge, so the layer is the *large* viewport */
+.pup-layer[data-anchor='bottom'] { top: auto; height: 100lvh; }
+
+/* an invisible full-height element: gives the planner the true (small) viewport height */
+.pup-probe {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 0;
+  height: 100svh;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.pup-actor { position: absolute; top: 0; left: 0; will-change: transform; }
+.pup-actor__body { width: 300px; transform-origin: 0 0; }
+.pup-actor__body > svg { display: block; width: 300px; height: 240px; }
+/* only his painted shapes are clickable, not the empty box around him */
+.pup-actor .pup-actor__body > svg :is(path, ellipse, circle) { pointer-events: visiblePainted; cursor: pointer; }
+.pup-actor svg [opacity='0'],
+.pup-actor svg [opacity='0'] * { pointer-events: none !important; }
+
+.pup-bubble-at { position: absolute; top: 0; left: 0; }
+.pup-bubble {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  translate: -50%;
+  scale: 0.4;
+  opacity: 0;
+  padding: 0.3rem 0.85rem 0.35rem;
+  border: 2.5px solid var(--color-cocoa);
+  border-radius: 1.1rem 1.1rem 1.1rem 0.25rem;
+  background: var(--color-milk);
+  color: var(--color-cocoa);
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  box-shadow: 2px 3px #2a170e2e;
+  transform-origin: 30% 100%;
+  transition: scale 0.4s var(--ease-pounce), opacity 0.18s ease-out;
+}
+.pup-bubble[data-show='true'] { opacity: 1; scale: 1; }
+
+.pup-heart {
+  position: absolute;
+  color: var(--color-toffee);
+  font-size: 1.35rem;
+  line-height: 1;
+  text-shadow: 0 1px 0 var(--color-milk);
+  pointer-events: none;
+}
+
+/* paw prints live in the page (positioned against <main>), so they scroll with the content */
+.app-main { position: relative; }
+.pup-prints { position: absolute; inset: 0; z-index: 5; overflow: clip; pointer-events: none; }
+.pup-prints > svg { position: absolute; top: 0; left: 0; width: 15px; height: 15px; opacity: 0; fill: var(--color-toffee); }
+
+@media (prefers-reduced-motion: reduce) {
+  .pup-layer, .pup-prints { display: none; }
+}
+
+/* the Meet hall wraps its static Teddy one level deeper than the other stops — hide that one too while he travels */
+html[data-pup] .tp-meet__run .pup-buddy { visibility: hidden; }

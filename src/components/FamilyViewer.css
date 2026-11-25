@@ -1,0 +1,90 @@
+/* Full-screen viewer — covers the whole viewport (header included), photo fitted with `contain`
+   (never cropped or zoomed), counter top-left, Close top-right, Previous / Next under the photo. */
+.fv {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  grid-template-rows: auto minmax(0, 1fr) auto;
+  height: 100dvh;
+  background: rgb(42 23 14 / 0.95);
+  color: var(--color-milk);
+  animation: fv-in 0.3s var(--ease-silk) both;
+}
+@keyframes fv-in { from { opacity: 0; } to { opacity: 1; } }
+
+.fv__bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.85rem 1rem 0.6rem;
+  padding-top: calc(0.85rem + env(safe-area-inset-top));
+}
+.fv__count {
+  font-size: 1.4rem;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  font-variant-numeric: tabular-nums;
+}
+.fv__close {
+  padding: 0.65rem 1.6rem;
+  border: 0;
+  border-radius: 999px;
+  background: var(--color-milk);
+  color: var(--color-cocoa);
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  transition: transform 0.3s var(--ease-pounce);
+}
+.fv__close:hover { transform: scale(1.05); }
+
+/* The stage is a positioned box; the image fills it and `contain` fits the whole photo inside.
+   (A max-height:100% on a grid child does not resolve, which is what made photos look zoomed.) */
+.fv__stage {
+  position: relative;
+  min-height: 0;
+  margin: 0 1rem;
+}
+.fv__img {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  animation: fv-img 0.35s var(--ease-silk) both;
+}
+@keyframes fv-img { from { opacity: 0; transform: scale(0.985); } to { opacity: 1; transform: none; } }
+
+.fv__controls {
+  display: flex;
+  justify-content: center;
+  gap: 0.75rem;
+  padding: 0.8rem 1rem calc(1rem + env(safe-area-inset-bottom));
+}
+.fv__btn {
+  padding: 0.7rem 1.7rem;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 1.15rem;
+  line-height: 1.2;
+  transition: transform 0.3s var(--ease-pounce), background-color 0.2s ease;
+}
+.fv__btn:hover { transform: translateY(-2px); }
+.fv__btn--prev { background: transparent; color: var(--color-milk); border: 2px solid var(--color-milk); }
+.fv__btn--prev:hover { background: rgb(255 253 248 / 0.12); }
+.fv__btn--next { background: #e8b96a; color: var(--color-cocoa); border: 2px solid #e8b96a; }
+.fv__btn--next:hover { background: var(--color-honey); }
+.fv button:focus-visible { outline: 3px solid var(--color-honey); outline-offset: 3px; }
+
+@media (max-width: 639px) {
+  .fv__bar { padding: 0.6rem 0.75rem 0.4rem; padding-top: calc(0.6rem + env(safe-area-inset-top)); }
+  .fv__count { font-size: 1.05rem; }
+  .fv__close { padding: 0.5rem 1.2rem; font-size: 0.95rem; }
+  .fv__stage { margin: 0 0.5rem; }
+  .fv__controls { padding: 0.6rem 0.75rem calc(0.8rem + env(safe-area-inset-bottom)); }
+  .fv__btn { padding: 0.6rem 1.35rem; font-size: 1rem; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .fv, .fv__img { animation: none; }
+}
