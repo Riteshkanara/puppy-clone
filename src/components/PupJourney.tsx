@@ -349,6 +349,8 @@ export default function PupJourney() {
         setData(m.scene, 'visited', String(i <= k || (i === k + 1 && v.t > 0.92)))
       })
 
+      // in the footer basket his head also sways a little left/right (see PupRig.sway)
+      r.sway = holding && p.meta[k]?.act === 'basket' ? 1 : 0
       // eyes: a thing he was told to look at, else the mouse (for a few seconds after it moves), else ahead
       if (lookAt && lookAt.until > now) {
         const b = lookAt.el.getBoundingClientRect()

@@ -4,6 +4,7 @@ import { Link } from 'react-router-dom'
 import PupBuddy from '../PupBuddy'
 import Clip from '../Clip'
 import Photo from '../Photo'
+import teddyPupsLogo from '../../../assets/images/teddypups-logo.png'
 
 export default function ChatScene() {
   const { stepsRef, typing, stepState, groupShown } = useChatSteps(3)
@@ -68,7 +69,7 @@ export default function ChatScene() {
                 height="40"
                 className="tp-phone__avatar"
                 style={{ color: 'transparent' }}
-                src="/brand/logo.png"
+                src={teddyPupsLogo}
               />
               <span>
                 <span className="tp-phone__name">TeddyPups U.A.E.</span>

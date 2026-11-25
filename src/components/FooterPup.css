@@ -1,0 +1,46 @@
+/* Live footer Teddy (components/FooterPup.tsx). Only applies while he is live (`data-live`); reduced motion keeps the static snapshot. */
+
+/* only his painted shapes react — not the empty box around him, and not parts the rig has faded out */
+.footer-pup[data-live] > svg :is(path, ellipse, circle) { pointer-events: visiblePainted; }
+.footer-pup > svg [opacity='0'],
+.footer-pup > svg [opacity='0'] * { pointer-events: none !important; }
+
+@media (hover: hover) and (pointer: fine) and (prefers-reduced-motion: no-preference) {
+  .footer-pup[data-live] > svg :is(path, ellipse, circle) { cursor: url('/cursor/paw-press.svg') 9 6, pointer; }
+}
+
+/* speech bubble — same look as the original's, sitting above his head */
+.footer-pup__bubble {
+  position: absolute;
+  bottom: 84%;
+  left: 72%;
+  z-index: 30;
+  translate: -50%;
+  scale: 0.4;
+  opacity: 0;
+  padding: 0.3rem 0.85rem 0.35rem;
+  border: 2.5px solid var(--color-cocoa);
+  border-radius: 1.1rem 1.1rem 1.1rem 0.25rem;
+  background: var(--color-milk);
+  color: var(--color-cocoa);
+  font-family: var(--font-hand);
+  font-size: 1.05rem;
+  line-height: 1.2;
+  white-space: nowrap;
+  pointer-events: none;
+  box-shadow: 2px 3px #2a170e2e;
+  transform-origin: 30% 100%;
+  transition: scale 0.4s var(--ease-pounce), opacity 0.18s ease-out;
+}
+.footer-pup__bubble[data-show='true'] { opacity: 1; scale: 1; }
+
+/* hearts for "I like you!" (same as the page-wide Teddy's) */
+.footer-pup .pup-heart {
+  position: absolute;
+  z-index: 30;
+  color: var(--color-toffee);
+  font-size: 1.35rem;
+  line-height: 1;
+  text-shadow: 0 1px 0 var(--color-milk);
+  pointer-events: none;
+}

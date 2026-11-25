@@ -1,6 +1,6 @@
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 import teddyPupsLogo from "../assets/images/teddypups-logo.png";
-import HomeBasket from "./HomeBasket";
+import FooterBasket from "./FooterBasket";
 import { CONTACT as contact } from "../data/contactDetails";
 import "./Footer.css";
 
@@ -15,8 +15,11 @@ const exploreLinks = [
 ];
 
 function Footer() {
+  // Same basket on every page (the original's). On Home it is also Teddy's last stop (he walks down and jumps in);
+  // on the other pages it is the original's static, breathing, blinking Teddy.
+  const live = useLocation().pathname === "/";
   return (
-    <footer className="site-footer">
+    <footer className={live ? "site-footer site-footer--live" : "site-footer"}>
       <svg
         className="site-footer__wave"
         aria-hidden="true"
@@ -44,7 +47,7 @@ function Footer() {
             TeddyPups U.A.E. is a Dubai-based brand specializing in miniature
             puppies, offering premium services and worldwide shipping.
           </p>
-          <HomeBasket />
+          <FooterBasket live={live} />
         </section>
 
         <nav className="site-footer__explore" aria-label="Footer navigation">

@@ -1,6 +1,7 @@
 import { useEffect, useRef, useState } from 'react'
 import type { CSSProperties, KeyboardEvent, ReactNode, RefObject } from 'react'
 import { Link, useLocation } from 'react-router-dom'
+import CtaPup from '../components/CtaPup'
 import TeddyRig from '../components/TeddyRig'
 import { useDocumentMeta } from '../hooks/useDocumentMeta'
 import { useReveal } from '../hooks/useReveal'
@@ -425,8 +426,7 @@ function HowItWorksPage() {
             </div>
           </div>
           <div className="hiw-cta__pup" aria-hidden="true">
-            <span className="hiw-bubble hiw-scrawl">hm?</span>
-            <div className="hiw-cta__rig"><TeddyRig mode="bound" /></div>
+            <div className="hiw-cta__rig"><CtaPup /></div>
           </div>
         </div>
       </section>

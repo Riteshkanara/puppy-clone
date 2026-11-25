@@ -3,17 +3,17 @@ import { PAW_PATH } from './paw'
 /** Tunables — one place to adjust the feel of the footprint trail. */
 export const PAW_TRAIL = {
   /** Distance the pointer must travel before the next footprint is stamped (px). */
-  step: 46,
+  step: 28,
   /** Sideways offset of left/right feet from the pointer path (px). */
-  stride: 7,
+  stride: 6,
   /** Footprint size (px) and peak opacity. */
-  size: 24,
-  opacity: 0.9,
+  size: 15,
+  opacity: 0.5,
   /** How long a footprint lives before it has fully faded (ms). */
-  life: 1500,
+  life: 1200,
   /** Short "stamp" pop at the start (ms). */
-  pop: 180,
-  colour: '122 70 40', // warm mid brown (#7a4628)
+  pop: 120,
+  colour: '194 98 43', // toffee (#c2622b), like the original .pup-prints
 } as const
 
 interface Print {

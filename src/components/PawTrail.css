@@ -8,15 +8,18 @@
   pointer-events: none;
 }
 
-/* Paw cursor for real mice. Files live in /public/cursor (replace with the originals to match exactly).
-   Hotspot = centre of the paw. Text fields keep the normal I-beam. */
+/* Paw cursor for real mice. Hotspot 9 6 like the original. Press paw only over interactive things. */
 @media (hover: hover) and (pointer: fine) {
-  html,
-  html *:not(input):not(textarea):not([contenteditable='true']) {
-    cursor: url('/cursor/paw.svg') 16 16, auto !important;
+  html {
+    cursor: url('/cursor/paw.svg') 9 6, auto;
   }
-  html:active,
-  html *:not(input):not(textarea):not([contenteditable='true']):active {
-    cursor: url('/cursor/paw-press.svg') 16 16, auto !important;
+  a,
+  button,
+  [role='button'],
+  summary,
+  select,
+  label[for],
+  .pup-actor svg :is(path, ellipse, circle) {
+    cursor: url('/cursor/paw-press.svg') 9 6, pointer;
   }
 }

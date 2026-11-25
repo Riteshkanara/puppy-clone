@@ -25,17 +25,18 @@ export interface Pose {
   earL: number; earR: number; tail: number
   fn: number; ff: number; bn: number; bf: number
   sit: number; eyes: number; happy: number; tongue: number; mouth: number; front: number
+  collar: number
 }
 const base: Pose = {
   bodyRot: 0, bodyX: 0, bodyY: 0, stretch: 1, headX: 0, headY: 0, headRot: 0, earL: 0, earR: 0, tail: 0,
-  fn: 0, ff: 0, bn: 0, bf: 0, sit: 0, eyes: 1, happy: 0, tongue: 0, mouth: 0, front: 0,
+  fn: 0, ff: 0, bn: 0, bf: 0, sit: 0, eyes: 1, happy: 0, tongue: 0, mouth: 0, front: 0, collar: 1,
 }
 export const POSES = {
   stand: base,
   walk: { ...base, tail: -6, tongue: 1 },
   sit: { ...base, bodyRot: -24, bodyY: -2, headX: -10, headY: -6, tail: 34, sit: 1, tongue: 1 },
   peek: { ...base, headY: 4, earL: -6, earR: 6, tail: -20, front: 1, tongue: 1 },
-  snug: { ...base, headY: 9, headRot: 4, earL: 3, earR: -3, tail: -20, front: 1, tongue: 0 },
+  snug: { ...base, headY: 9, headRot: 4, earL: 3, earR: -3, tail: -20, front: 1, tongue: 0, collar: 0 },
   hop: { ...base, bodyRot: -9, stretch: 1.06, headY: -6, fn: -42, ff: -32, bn: 40, bf: 30, earL: -26, earR: 26, tail: -24, tongue: 1 },
   lie: { ...base, bodyRot: -5, bodyY: 22, headX: 12, headY: 40, headRot: 3, fn: -84, ff: -80, sit: 1, tail: 58, tongue: 0 },
   sleep: { ...base, bodyRot: -5, bodyY: 22, headX: 14, headY: 44, headRot: -8, fn: -84, ff: -80, sit: 1, tail: 64, eyes: 0, earL: 4, earR: -4 },
@@ -96,6 +97,7 @@ function compute(e: Pose, m: Motion) {
     haunchOpacity: x2(e.sit * (1 - e.front)),
     side: x2(1 - e.front),
     ledge: x2(e.front),
+    collar: x2(e.collar),
     shadow: `translate(${x2(0.6 * e.bodyX)} 0) scale(${x2(1 - 0.05 * p * g)} 1)`,
     shadowOpacity: x2(0.12 * (1 - e.front)),
   }
@@ -118,6 +120,7 @@ const BINDINGS: [string, string, keyof Out | 'root'][] = [
   ['happy', 'opacity', 'happyEyes'], ['shut', 'opacity', 'shutEyes'],
   ['tongue', 'opacity', 'tongue'], ['mouth', 'opacity', 'mouth'],
   ['ledge', 'opacity', 'ledge'],
+  ['collar', 'opacity', 'collar'],
 ]
 
 export class PupRig {
@@ -142,6 +145,9 @@ export class PupRig {
   private turn = 0.07
   private pet = 0
   private petTarget = 0
+  /** 0 = off, 1 = on: lets the head drift a little left/right (cursor-led, plus a slow idle sway). Only the footer basket uses it. */
+  sway = 0
+  private swayK = 0
   facing: number
   facingTarget: number
 
@@ -230,9 +236,15 @@ export class PupRig {
     const c = (t - this.blinkAt) / 0.15
     m.blink = c >= 0 && c <= 1 ? Math.sin(c * Math.PI) : 0
 
+    // optional head sway: leans toward the cursor, and keeps a slow, tiny left/right drift when nothing is moving
+    this.swayK += (this.sway - this.swayK) * ease(dt, 0.25)
+    const idleSway = Math.sin(t * 0.85) * 0.6 + Math.sin(t * 0.37 + 1.3) * 0.4
+    const swayX = this.swayK * (3.2 * m.gazeX + 1.5 * idleSway)
+    const swayRot = this.swayK * (1.8 * m.gazeX + 1.4 * idleSway)
     const h: Pose = {
       ...this.pose,
-      headRot: this.pose.headRot + this.tilt,
+      headX: this.pose.headX + swayX,
+      headRot: this.pose.headRot + this.tilt + swayRot,
       bodyY: this.pose.bodyY + this.bounce,
       headY: this.pose.headY + 1.15 * this.bounce,
       mouth: t < this.woofUntil ? 1 : this.pose.mouth,
