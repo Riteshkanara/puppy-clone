@@ -1,0 +1,27 @@
+/* Type helpers from the original (.font-plush, .font-scrawl, .text-*, .gutter, .link-ink). */
+.gutter { padding-inline: var(--gutter); }
+.font-plush {
+  font-family: var(--font-display);
+  font-variation-settings: 'SOFT' 100, 'WONK' 1, 'opsz' 144;
+  font-weight: 800;
+  line-height: 0.92;
+  letter-spacing: -0.025em;
+  text-wrap: balance;
+}
+.font-scrawl {
+  font-family: var(--font-hand);
+  font-variation-settings: 'INFM' 60, 'BNCE' 30;
+  font-weight: 500;
+  letter-spacing: 0;
+}
+.text-lede { font-size: clamp(1.125rem, 1.4vw, 1.375rem); line-height: 1.5; }
+.text-big { font-size: clamp(2rem, 4.2vw, 4rem); }
+.text-giant { font-size: clamp(3.1rem, 9.4vw, 9.75rem); }
+.link-ink {
+  color: var(--color-toffee-ink);
+  text-decoration: underline;
+  text-decoration-thickness: 2px;
+  text-underline-offset: 0.2em;
+  text-decoration-color: color-mix(in oklab, var(--color-toffee) 55%, transparent);
+}
+.link-ink:hover { text-decoration-color: currentColor; }

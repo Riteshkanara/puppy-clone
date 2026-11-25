@@ -1,0 +1,24 @@
+/* Shared buttons — extracted from the original. If the clone already has .btn rules, keep one set only. */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.6rem;
+  min-height: 3.25rem;
+  padding: 0.85rem 1.6rem;
+  font: inherit;
+  font-size: 1.0625rem;
+  font-weight: 650;
+  line-height: 1.1;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 999px;
+  transition: transform 0.35s var(--ease-pounce), background-color 0.25s ease, box-shadow 0.35s var(--ease-silk);
+}
+.btn:active { transform: scale(0.96); }
+.btn-primary { background: var(--color-toffee-deep); color: var(--color-milk); box-shadow: 0 0.5rem 0 -0.15rem var(--color-cocoa); }
+.btn-primary:hover { box-shadow: 0 0.7rem 0 -0.15rem var(--color-cocoa); transform: translateY(-2px) rotate(-1deg); }
+.btn-ghost { color: var(--color-cocoa); background: transparent; border: 2px solid var(--color-cocoa); }
+.btn-ghost:hover { background: var(--color-cocoa); color: var(--color-milk); }
+.btn-whatsapp { background: #1f7a4d; color: #fff; box-shadow: 0 0.5rem 0 -0.15rem var(--color-cocoa); }
+.btn-whatsapp:hover { transform: translateY(-2px) rotate(1deg); }
