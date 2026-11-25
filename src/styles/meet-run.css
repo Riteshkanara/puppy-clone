@@ -1,0 +1,15 @@
+/* Home → "Meet the pups" and the page-wide Teddy. Loaded after home.css (see HomePage.tsx). */
+
+/* home.css dropped the original's CSS reset, so these links fell back to the browser's blue. */
+.tp-door__link {
+  color: inherit;
+}
+
+/*
+ * Teddy is ONE traveller (components/PupJourney.tsx). While he is live, whatever is drawn inside a stop
+ * (static snapshot or the animated rig) is hidden — otherwise there are two Teddys at that stop.
+ * home.css only hid a direct `.pup-buddy` child; this covers any child (e.g. the Home CTA's TeddyRig).
+ */
+html[data-pup] .pup-stop > * {
+  visibility: hidden;
+}
